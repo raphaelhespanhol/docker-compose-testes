@@ -1,19 +1,19 @@
 version: '3'
 services:
 
-  spring-mock-tests:
-    depends_on:
-      - localstack
-    build:
-      context: ${EXTERNAL_SOURCE_CODE}/spring-mock-tests/
-    container_name: spring-mock-tests
-    environment:
-#      - JAVA_OPTS=-Dspring.profiles.active=tst
-    ports:
-      - "8090:8080"
-    networks:
-      bfb:
-        ipv4_address: 174.101.101.101
+#  spring-mock-tests:
+#    depends_on:
+#      - localstack
+#    build:
+#      context: ${EXTERNAL_SOURCE_CODE}/spring-mock-tests/
+#    container_name: spring-mock-tests
+#    environment:
+##      - JAVA_OPTS=-Dspring.profiles.active=tst
+#    ports:
+#      - "8090:8080"
+#    networks:
+#      bfb:
+#        ipv4_address: 174.101.101.101
 
   localstack:
     image: localstack/localstack
