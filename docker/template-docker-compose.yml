@@ -1,0 +1,57 @@
+version: '3'
+services:
+
+  spring-mock-tests:
+    depends_on:
+      - localstack
+    build:
+      context: ${EXTERNAL_SOURCE_CODE}/spring-mock-tests/
+    container_name: spring-mock-tests
+    environment:
+#      - JAVA_OPTS=-Dspring.profiles.active=tst
+    ports:
+      - "8090:8080"
+    networks:
+      bfb:
+        ipv4_address: 174.101.101.101
+
+  localstack:
+    image: localstack/localstack
+    container_name: localstack
+    ports:
+      - "4567-4597:4567-4597"
+      - "${PORT_WEB_UI-8888}:${PORT_WEB_UI-8080}"
+    environment:
+      - SERVICES=dynamodb,sqs
+      - DEBUG=${DEBUG- }
+      - DATA_DIR=${DATA_DIR- }
+      - PORT_WEB_UI=${PORT_WEB_UI- }
+      - LAMBDA_EXECUTOR=${LAMBDA_EXECUTOR- }
+      - KINESIS_ERROR_PROBABILITY=${KINESIS_ERROR_PROBABILITY- }
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    volumes:
+      - "./aws:/docker-entrypoint-initaws.d"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    networks:
+      bfb:
+        ipv4_address: 174.101.101.102
+
+  wiremock:
+    image: rodolpheche/wiremock
+    container_name: wiremock
+    ports:
+      - "7777:8080"
+    volumes:
+      - ../wiremock:/home/wiremock
+    command: ["--print-all-network-traffic"]
+    networks:
+      bfb:
+        ipv4_address: 174.101.101.103
+
+networks:
+  bfb:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 174.101.101.0/24

@@ -1,0 +1,54 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+Gemfile.lock
+
+# Output of 'npm pack'
+*.tgz
+*.zip
+*.7z
+
+# ----- JAVA -----
+*.class
+.recommenders
+../target/
+Evidences/
+*.meta/
+*.settings/
+*.classpath
+*.jsdtscope
+bin/
+.metadata
+.project
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+# Exec Files #
+*.exe
+*.dll
+
+# Arquivo temporario docker
+docker-compose.yml
+docker/localstack/data/kinesis
+docker/localstack/data/*.json
+docker/localstack/sqs*
+docker/localstack/server*
+docker/sqs*
+docker/server*
+
+# IntelliJ files
+*.iml
+.idea/*
